@@ -6,11 +6,11 @@ void ofApp::setup(){
    ofSetFullscreen(false);
     
    ofBackground(0);
-   ofDisableArbTex();
+ //  ofDisableArbTex();
     
    shader.load("shaders/shader");
     
-   fbo.allocate(ofGetWidth(), ofGetHeight());
+  // fbo.allocate(ofGetWidth(), ofGetHeight());
    img.load("img.jpg");
 
     
@@ -27,7 +27,7 @@ void ofApp::draw(){
     ofSetWindowTitle(ofToString(ofGetFrameRate()));
     
     
-    fbo.begin();
+  //  fbo.begin();
     shader.begin();
     shader.setUniform3f("iResolution", ofGetWidth(), ofGetHeight(),1);
     shader.setUniform1f("iGlobalTime", ofGetElapsedTimef()/2);
@@ -35,17 +35,18 @@ void ofApp::draw(){
     shader.setUniform1f("iChannelTime[4]", ofGetElapsedTimef());
     shader.setUniform3f("iChannelResolution[4]",img.getWidth(),img.getHeight(),0.0);
     shader.setUniformTexture("iChannel0", img, 0);
+    shader.setUniformTexture("iChannel1", img, 1);
+    shader.setUniformTexture("iChannel2", img, 2);
     shader.setUniform4f("iDate", ofGetYear(), ofGetMonth(), ofGetDay(), ofGetSeconds());
 
     ofRect(0,0, ofGetWidth(), ofGetHeight());
     
     shader.end();
-    fbo.end();
+   /* fbo.end();
     
     ofPushMatrix();
     fbo.draw(0,0,ofGetWidth(), ofGetHeight());
-    ofPopMatrix();
-
+    ofPopMatrix();*/
     
 
 }
